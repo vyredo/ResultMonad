@@ -1,5 +1,6 @@
 # typed-result
 
+https://github.com/vyredo/ResultMonad/blob/main/README.md
 
 ## Why typed-result?
 
