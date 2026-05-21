@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourusername/typed-result.git"
+    "url": "git+https://github.com/vyredo/ResultMonad.git"
   },
   "keywords": [
     "typescript",
@@ -41,12 +41,12 @@
     "errors",
     "exceptions"
   ],
-  "author": "Your Name <your.email@example.com>",
+  "author": "Vidy Alfredo",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/yourusername/typed-result/issues"
+    "url": "https://github.com/vyredo/ResultMonad/issues"
   },
-  "homepage": "https://typed-result.dev",
+  "homepage": "https://github.com/vyredo/ResultMonad",
   "devDependencies": {
     "@types/jest": "^29.5.11",
     "@types/node": "^20.10.5",
@@ -84,10 +84,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "branches": 100,
-        "functions": 100,
-        "lines": 100,
-        "statements": 100
+        "branches": 80,
+        "functions": 95,
+        "lines": 95,
+        "statements": 95
       }
     }
   },

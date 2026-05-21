@@ -340,6 +340,11 @@ export class Result<T, E extends Error = Error> {
     return this.isOk ? Result.ok(mappingFunction(this.value!)) as ResultSuccess<U> : Result.fail(this.error!);
   }
 
+  /** Alias for fmap. Maps a function over a Result value if successful. */
+  map<U>(mappingFunction: (value: ExcludeUnknownAndError<T>) => U) {
+    return this.fmap(mappingFunction);
+  }
+
   /**
    * Chains computations that return Results, propagating errors.
    * 
@@ -438,7 +443,8 @@ export class Result<T, E extends Error = Error> {
    * const processedValue = result.unwrapSafe()?.toString().toUpperCase();
    */
   unwrapSafe(): ExcludeUnknownAndError<T> | null {
-    return this.value! as ExcludeUnknownAndError<T> | null;
+    if (!this.isOk) return null;
+    return this.value! as ExcludeUnknownAndError<T>;
   }
 
   /**
@@ -494,7 +500,8 @@ export class Result<T, E extends Error = Error> {
    * const user = userResult.unwrapOrElse({ id: -1, name: 'Anonymous' });
    */
   unwrapOrElse(fallbackValue: T): T {
-    return this.isOk && !this.error ? this.value! : fallbackValue;
+    if (!this.isOk) return fallbackValue;
+    return this.value as ExcludeUnknownAndError<T>;
   }
 
   /**
@@ -580,14 +587,13 @@ export class Result<T, E extends Error = Error> {
       ) => string | boolean | Record<string, unknown> | void
     >
   ): ExcludeUnknownAndError<T> {
-    let shouldIgnoreError = false;
     for (const validationCallback of validationCallbacks) {
       if (typeof validationCallback !== "function") continue;
       try {
         const validationResult = validationCallback(this.value, this.error);
 
         // if result of callback is null/undefined/false, continue to next validation
-        if (typeof validationResult == null || validationResult === false) {
+        if (validationResult == null || validationResult === false) {
           continue;
         }
 
@@ -610,7 +616,7 @@ export class Result<T, E extends Error = Error> {
       }
     }
 
-    if (!shouldIgnoreError && !this.isOk) {
+    if (!this.isOk) {
       throw new Error(this.error?.message ?? "");
     }
 

@@ -592,7 +592,7 @@ function validateUser(data: unknown): Result<User, ValidationError> {
 | `flatMap<U>(fn)` | Chain Result-returning operations | `result.flatMap(x => Result.ok(x + 1))` |
 | `match<U>(onOk, onFail)` | Pattern matching | `result.match(v => v, e => 0)` |
 | `unwrap()` | Extract value or throw | `result.unwrap()` |
-| `unwrapOr(default)` | Extract value or return default | `result.unwrapOr(0)` |
+| `unwrapOrElse(default)` | Extract value or return default | `result.unwrapOrElse(0)` |
 | `unwrapThrowError(...callbacks)` | Advanced validation with custom logic | `result.unwrapThrowError(v => v > 0 \|\| 'Must be positive')` |
 | `unwrapSafe()` | Extract value or return null | `result.unwrapSafe()` |
 | `onSuccess(fn)` | Side effect on success | `result.onSuccess(console.log)` |
